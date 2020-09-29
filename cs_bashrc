@@ -32,6 +32,10 @@ alias cdconf="cd /usr/local/apache/conf"
 alias cdlogs="cd /usr/local/apache/logs"
 
 
+alias dkx='docker exec -it `docker ps -qf name=k8s_ddi-engine_`'
+alias dkgr='docker ps | grep engine'
+alias dkl='docker logs `docker ps -qf name=k8s_ddi-engine_`'
+
 alias rssh="sshrc -XC"
 alias tf='tail -f -n100'
 alias gr="ps -ef | grep -v grep | grep"
