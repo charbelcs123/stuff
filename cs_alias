@@ -1,0 +1,118 @@
+
+
+alias lt='ls -lrth'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias lg='ls -lrt | grep'
+alias l10='du -ah ./ | sort -n -r | head -n 10'
+
+alias cdbin="cd ~/bin"
+alias cdinit="cd ~/init"
+alias cdlog="cd ~/log"
+alias cdhtml="cd ~/html"
+alias cdtemp="cd ~/temp"
+alias cdconf="cd /usr/local/apache/conf"
+alias cdlogs="cd /usr/local/apache/logs"
+
+
+alias dkx='docker exec -it `docker ps -qf name=k8s_ddi-engine_`'
+alias dkgr='docker ps | grep engine'
+alias dkl='docker logs `docker ps -qf name=k8s_ddi-engine_`'
+
+alias rssh="sshrc -XC"
+alias tf='tail -f -n100'
+alias gr="ps -ef | grep -v grep | grep"
+alias his="history"
+alias ghis="history | grep "
+alias ns="sudo netstat -anp | grep"
+
+alias pyclean='find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf'
+alias duh="du ./ --max-depth 1 -h"
+alias dua="du -ah ./ | sort -n -r | head -n 30"
+alias diffy='diff -y --suppress-common-lines'
+
+
+alias msup="cd ~/remote && ./mount_sup_dpi.sh"
+alias mdev="cd ~/remote && ./mount_dev_dpi.sh"
+alias mpro="cd ~/remote && ./mount_pro_dpi.sh"
+alias lsup="sshrc -XC sup-dpi"
+alias ldev="sshrc -XC dev-dpi"
+alias lmed="sshrc -XC nex-med-01"
+alias lpro="sshrc -XC ddi@prom"
+
+alias wget_dir="wget -r –level=0 -E –ignore-length -x -k -p -erobots=off -np -N"
+
+# find file
+function ff (){
+ find ./ -name "$1" -type f -print
+}
+
+#find word
+function fw (){
+ find ./ -name "$1" | xargs grep -iE --color "$2"
+}
+
+# repeat command
+function repeat (){
+ while sleep 1;do echo "==== $1 ====" && $1;done
+}
+
+
+
+function tssh (){
+ ssh -XC tweakker@$1
+}
+
+
+# jump to directory 
+function jp (){
+ cd /home/tweakker/$1
+
+}
+
+function tz {
+	 if [ -z "$1" ]; then
+		# display usage if no parameters given
+		echo "Usage: tz [file or directory]"
+	else
+		tar -czvf $1.tar.gz $1
+        fi
+}
+
+function tx {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
+ else
+    if [ -f $1 ] ; then
+        # NAME=${1%.*}
+        # mkdir $NAME && cd $NAME
+        case $1 in
+          *.tar.bz2)   tar xvjf ./$1    ;;
+          *.tar.gz)    tar xvzf ./$1    ;;
+          *.tar.xz)    tar xvJf ./$1    ;;
+          *.lzma)      unlzma ./$1      ;;
+          *.bz2)       bunzip2 ./$1     ;;
+          *.rar)       unrar x -ad ./$1 ;;
+          *.gz)        gunzip ./$1      ;;
+          *.tar)       tar xvf ./$1     ;;
+          *.tbz2)      tar xvjf ./$1    ;;
+          *.tgz)       tar xvzf ./$1    ;;
+          *.zip)       unzip ./$1       ;;
+          *.Z)         uncompress ./$1  ;;
+          *.7z)        7z x ./$1        ;;
+          *.xz)        unxz ./$1        ;;
+          *.exe)       cabextract ./$1  ;;
+          *)           echo "extract: '$1' - unknown archive method" ;;
+        esac
+    else
+        echo "$1 - file does not exist"
+    fi
+fi
+}
+
+
+
+
+
